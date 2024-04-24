@@ -1,6 +1,6 @@
 from telebot.types import Message
 
-from keyboards.reply.return_ticket_choice import direction_choice
+from keyboards.reply.low_ticket_choice import direction_choice
 from loader import bot
 
 

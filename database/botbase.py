@@ -21,7 +21,7 @@ class User(BaseModel):
 
 
 class TicketsInfo(BaseModel):
-    user = ForeignKeyField(User, backref="requests")
+    user = ForeignKeyField(User)
     origin = CharField()
     origin_iata = CharField(null=True)
     destination = CharField()
