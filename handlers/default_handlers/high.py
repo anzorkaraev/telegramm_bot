@@ -7,7 +7,7 @@ from loader import bot
 @bot.message_handler(commands=['high'])
 def bot_high(message: Message):
     """
-    Обработчик команды /high. Запускает сценарий поиска самого дешевого билета
+    Обработчик команды /high. Запускает сценарий поиска самого дорогого билета
     :param message:
     :return:
     """

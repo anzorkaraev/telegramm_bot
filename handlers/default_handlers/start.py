@@ -2,6 +2,7 @@ from peewee import IntegrityError
 from telebot.types import Message
 
 from database.botbase import User
+from keyboards.reply.start_the_search import start_search
 
 from loader import bot
 
@@ -25,22 +26,8 @@ def bot_start(message: Message):
             first_name=first_name,
             last_name=last_name
         )
-        bot.reply_to(message, f"Здравствуйте, {first_name}!\n Добро пожаловать в наш бот!\n"
-                              f"Здесь вы сможете найти подходящий авиабилет!")
-        bot.send_message(message.chat.id, "Чтобы начать поиск билета выберите одну "
-                                          "из следующих команд:\n\n"
-                                          "/low - поиск самого дешевого билета\n"
-                                          "/high - поиск самого дорогого билета\n"
-                                          "/custom - поиск билетов в заданном диапазоне\n"
-                                          "/history - история запросов")
+        bot.reply_to(message, f"Здравствуйте, {first_name}!\nДобро пожаловать в наш бот!\n"
+                              f"Здесь вы сможете найти подходящий авиабилет!", reply_markup=start_search())
     except IntegrityError:
-        bot.reply_to(message, f"Здравствуйте, {first_name}!\n Добро пожаловать в наш бот!\n"
-                              f"Здесь вы сможете найти подходящий авиабилет!")
-        bot.send_message(message.chat.id, "Чтобы начать поиск билета выберите одну "
-                                          "из следующих команд:\n\n"
-                                          "/low - поиск самого дешевого билета\n"
-                                          "/high - поиск самого дорогого билета\n"
-                                          "/custom - поиск билетов в заданном диапазоне\n"
-                                          "/history - история запросов")
-
-
+        bot.reply_to(message, f"Здравствуйте, {first_name}!\nДобро пожаловать в наш бот!\n"
+                              f"Здесь вы сможете найти подходящий авиабилет!", reply_markup=start_search())

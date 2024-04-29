@@ -1,3 +1,6 @@
+from datetime import date
+
+
 class Date:
     @classmethod
     def is_date_valid(cls, string: str) -> bool:
@@ -7,10 +10,10 @@ class Date:
         :return: True | False
         """
         try:
-            date = string.split('-')
-            year, month, day = int(date[0]), int(date[1]), int(date[2])
+            my_date = string.split('-')
+            year, month, day = int(my_date[0]), int(my_date[1]), int(my_date[2])
             days_number = cls.month_check(month)
-            return 0 < day <= days_number and 0 < month <= 12 and 1800 < year <= 3000
+            return 1 <= day <= days_number and 1 <= month <= 12 and date.today().year <= year <= 3000
         except (ValueError, IndexError):
             return False
 
@@ -28,3 +31,18 @@ class Date:
         else:
             max_day = 28
         return max_day
+
+    @classmethod
+    def splitting_the_date(cls, text: str) -> tuple:
+        """
+        Функция. Разделяет введенную дату на день, месяц и год
+        :param text:
+        :return:
+        """
+        text_elements = text.split()
+        if len(text_elements) == 2:
+            day, mounth = text_elements[0], text_elements[1]
+            return day, mounth, date.today().year
+        elif len(text_elements) == 3:
+            day, mount, year = text_elements[0], text_elements[1], text_elements[2]
+            return day, mount, year

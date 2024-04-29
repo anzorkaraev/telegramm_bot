@@ -6,4 +6,3 @@ class LowPriceTwoWay(StatesGroup):
     destination = State()
     depart_date = State()
     return_date = State()
-    api_request = State()
