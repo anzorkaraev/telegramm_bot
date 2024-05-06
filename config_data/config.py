@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv, find_dotenv
 from pydantic_settings import BaseSettings
-from pydantic import SecretStr, StrictStr
+from pydantic import SecretStr
 
 if not find_dotenv():
     exit("Переменные окружения не загружены, так как отсутствует файл .env")
@@ -22,6 +22,7 @@ DEFAULT_COMMANDS = (
     ("help", "Информация о боте"),
     ("low", "Самые дешевые билеты"),
     ("high", "Самые дорогие билеты"),
+    ("all", "Все доступные билеты"),
     ("custom", "Цены в выбранном диапазоне"),
     ("history", "История запросов")
 )

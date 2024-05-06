@@ -46,3 +46,5 @@ class Date:
         elif len(text_elements) == 3:
             day, mount, year = text_elements[0], text_elements[1], text_elements[2]
             return day, mount, year
+        else:
+            raise ValueError

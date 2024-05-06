@@ -2,7 +2,6 @@ from peewee import IntegrityError
 from telebot.types import Message
 
 from database.botbase import User
-from keyboards.reply.start_the_search import start_search
 
 from loader import bot
 
@@ -27,7 +26,7 @@ def bot_start(message: Message):
             last_name=last_name
         )
         bot.reply_to(message, f"Здравствуйте, {first_name}!\nДобро пожаловать в наш бот!\n"
-                              f"Здесь вы сможете найти подходящий авиабилет!", reply_markup=start_search())
+                              f"Здесь вы сможете найти подходящий авиабилет!")
     except IntegrityError:
         bot.reply_to(message, f"Здравствуйте, {first_name}!\nДобро пожаловать в наш бот!\n"
-                              f"Здесь вы сможете найти подходящий авиабилет!", reply_markup=start_search())
+                              f"Здесь вы сможете найти подходящий авиабилет!")

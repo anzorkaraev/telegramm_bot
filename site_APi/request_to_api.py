@@ -21,33 +21,38 @@ def get_tickets_price(orig: str = None, dest: str = None, dep_date: date = date.
         "X-RapidAPI-Key": data.api_key.get_secret_value()
     }
 
-    response = requests.get(url, headers=headers, params=querystring)
-    response_json = json.loads(response.text)
+    try:
+        response = requests.get(url, headers=headers, params=querystring, timeout=5)
+        response_json = json.loads(response.text)
 
-    return response_json
+        return response_json
+    except requests.exceptions.Timeout:
+        return 'error'
 
 
 def get_iata_code(origin: str = None, destination: str = None):
-    response = requests.get(f"https://www.travelpayouts.com/widgets_suggest_params?q=%20{origin}%20{destination}")
-    response_json = json.loads(response.text)
-    return response_json
+    try:
+        response = requests.get(
+            f"https://www.travelpayouts.com/widgets_suggest_params?q=%20{origin}%20{destination}",
+            timeout=5
+        )
+        response_json = json.loads(response.text)
+        return response_json
+    except requests.exceptions.Timeout:
+        return 'error'
 
 
 def get_weather(city: str = None) -> Json:
-    response = requests.get(
-        f"https://api.openweathermap.org/data/2.5/weather?"
-        f"q={city}&appid={data.weather_key.get_secret_value()}&units=metric&lang=ru"
-    )
-    response_json = json.loads(response.text)
-    return response_json
+    try:
+        response = requests.get(
+            f"https://api.openweathermap.org/data/2.5/weather?"
+            f"q={city}&appid={data.weather_key.get_secret_value()}&units=metric&lang=ru", timeout=5
+        )
+        response_json = json.loads(response.text)
+        return response_json
+    except requests.exceptions.Timeout:
+        return 'error'
 
-
-# def get_icon(icon: str = None):
-#     response = requests.get(f"https://openweathermap.org/img/wn/{icon}@2x.png")
-#     # response_json = json.loads(response.text)
-#     return response
-#
-# print(get_icon('01d'))
 
 if __name__ == '__main__':
     get_tickets_price()
