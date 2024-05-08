@@ -2,6 +2,7 @@ import os
 
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
+from handlers.default_handlers.history import get_history
 from loader import bot
 from site_APi.request_to_api import get_weather
 
@@ -18,7 +19,12 @@ def weather(link: str, city: str):
 @bot.callback_query_handler(func=lambda call: True)
 def callback(call: CallbackQuery):
     dep_city_weather = get_weather(call.data)
-    if dep_city_weather == 'error':
+    if 'go' in call.data:
+        page = int(call.data.split(' ')[1])
+        bot.delete_message(call.message.chat.id, call.message.message_id)
+        get_history(call.message, page=page)
+
+    elif dep_city_weather == 'error':
         bot.send_message(call.message.chat.id, 'Вышло время ожидания ответа от сервера.\n'
                                                'Возможно у вас плохое соединение с сетью Интернет\n'
                                                'Попробуйте ещё раз')
@@ -31,7 +37,7 @@ def callback(call: CallbackQuery):
     else:
         with open(os.path.abspath(f'icons/{dep_city_weather["weather"][0]["icon"]}.png'), 'rb') as file:
             text = (
-                f'<b>Погода в городе {call.data}</b>\n'
+                f'<b>Погода в городе {call.data.capitalize()}</b>\n'
                 f'<b>{dep_city_weather["weather"][0]["description"].capitalize()}</b>\n'
                 f'Температура макс/мин: '
                 f'<b>{round(dep_city_weather["main"]["temp_min"])}° / '

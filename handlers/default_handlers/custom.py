@@ -51,7 +51,7 @@ def get_origin(message: Message) -> None:
         bot.set_state(message.from_user.id, CustomPrice.destination, message.chat.id)
 
         with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
-            data['origin'] = message.text
+            data['origin'] = message.text.capitalize()
             data['origin_iata'] = iata_city_code['origin']['iata']
 
 
@@ -82,7 +82,7 @@ def get_destination(message: Message) -> None:
         bot.set_state(message.from_user.id, CustomPrice.price_range, message.chat.id)
 
         with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
-            data['destination'] = message.text
+            data['destination'] = message.text.capitalize()
             data['destination_iata'] = iata_city_code['destination']['iata']
 
 
@@ -104,7 +104,7 @@ def get_price_range(message: Message):
                 data['end_price'] = end_price
         else:
             bot.send_message(message.chat.id, '<b>Ошибка!</b>\n'
-                                              'Введите число!')
+                                              'Введите число!', parse_mode='html')
     except ValueError:
         bot.send_message(message.chat.id, '<b>Ошибка!</b>\n'
                                           'Введите два числа')

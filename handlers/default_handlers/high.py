@@ -50,7 +50,7 @@ def get_origin(message: Message) -> None:
         bot.set_state(message.from_user.id, HighPrice.destination, message.chat.id)
 
         with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
-            data['origin'] = message.text
+            data['origin'] = message.text.capitalize()
             data['origin_iata'] = iata_city_code['origin']['iata']
 
 
@@ -86,7 +86,7 @@ def get_destination(message: Message) -> None:
         bot.set_state(message.from_user.id, HighPrice.depart_date, message.chat.id)
 
         with bot.retrieve_data(message.from_user.id, message.chat.id) as data:
-            data['destination'] = message.text
+            data['destination'] = message.text.capitalize()
             data['destination_iata'] = iata_city_code['destination']['iata']
 
 
