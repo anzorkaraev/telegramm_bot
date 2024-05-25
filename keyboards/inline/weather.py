@@ -19,12 +19,12 @@ def weather(link: str, city: str):
 @bot.callback_query_handler(func=lambda call: True)
 def callback(call: CallbackQuery):
     dep_city_weather = get_weather(call.data)
-    if 'go' in call.data:
-        page = int(call.data.split(' ')[1])
-        bot.delete_message(call.message.chat.id, call.message.message_id)
-        get_history(call.message, page=page)
+    # if 'go' in call.data:
+    #     page = int(call.data.split(' ')[1])
+    #     bot.delete_message(call.message.chat.id, call.message.message_id)
+    #     get_history(call.message, page=page)
 
-    elif dep_city_weather == 'error':
+    if dep_city_weather == 'error':
         bot.send_message(call.message.chat.id, 'Вышло время ожидания ответа от сервера.\n'
                                                'Возможно у вас плохое соединение с сетью Интернет\n'
                                                'Попробуйте ещё раз')
